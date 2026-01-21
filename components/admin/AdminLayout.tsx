@@ -37,7 +37,7 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
             <div className="flex items-center justify-center min-h-screen">
                 <div className="text-center">
                     <h1 className="text-2xl font-bold text-text mb-4">Access Denied</h1>
-                    <p className="text-gray-600 mb-4">You don't have permission to access this page.</p>
+                    <p className="text-gray-600 mb-4">You don&apos;t have permission to access this page.</p>
                     <Link href="/" className="text-primary hover:underline">
                         Go to Home
                     </Link>
@@ -78,8 +78,8 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
                                     <Link
                                         href={item.href}
                                         className={`flex items-center space-x-3 px-4 py-3 rounded-lg transition-colors ${isActive
-                                                ? 'bg-primary text-white'
-                                                : 'text-text hover:bg-gray-100'
+                                            ? 'bg-primary text-white'
+                                            : 'text-text hover:bg-gray-100'
                                             }`}
                                     >
                                         <span className="text-xl">{item.icon}</span>

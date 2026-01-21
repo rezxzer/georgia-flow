@@ -131,9 +131,7 @@ export default function FriendSearch({ onFriendAdded }: FriendSearchProps) {
                                             alt={profile.username}
                                             width={40}
                                             height={40}
-                                            className="rounded-full"
-                                            alt={profile.username}
-                                            className="w-full h-full rounded-full object-cover"
+                                            className="rounded-full object-cover"
                                         />
                                     ) : (
                                         <span className="text-gray-500">

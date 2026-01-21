@@ -66,9 +66,9 @@ export default function CommentsSection({ placeId, eventId }: CommentsSectionPro
         } finally {
             setIsLoading(false);
         }
-    };
+    }, [placeId, eventId, supabase]);
 
-    const subscribeToComments = () => {
+    const subscribeToComments = useCallback(() => {
         const channel = supabase
             .channel(`comments:${placeId || eventId}`)
             .on(

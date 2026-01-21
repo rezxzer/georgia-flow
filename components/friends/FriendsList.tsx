@@ -98,7 +98,16 @@ export default function FriendsList({ userId }: FriendsListProps) {
         } catch (error) {
             console.error('Error loading pending requests:', error);
         }
-    };
+    }, [user, supabase]);
+
+    useEffect(() => {
+        if (targetUserId) {
+            loadFriends();
+            if (user?.id === targetUserId) {
+                loadPendingRequests();
+            }
+        }
+    }, [targetUserId, user, loadFriends, loadPendingRequests]);
 
     const handleAcceptRequest = async (requestId: string) => {
         try {

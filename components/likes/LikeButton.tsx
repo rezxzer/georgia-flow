@@ -46,9 +46,9 @@ export default function LikeButton({
         } catch (error) {
             setIsLiked(false);
         }
-    };
+    }, [user, placeId, eventId, commentId, supabase]);
 
-    const loadLikesCount = async () => {
+    const loadLikesCount = useCallback(async () => {
         try {
             let query = supabase.from('likes').select('id', { count: 'exact', head: true });
 
