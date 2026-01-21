@@ -94,6 +94,17 @@ NEXT_PUBLIC_APP_URL=http://localhost:3000
 3. Enable Google OAuth (optional):
    - Supabase Dashboard → Authentication → Providers → Google
 
+## Deployment
+
+### Vercel (Recommended)
+
+1. Push code to GitHub
+2. Import project in [Vercel](https://vercel.com)
+3. Add environment variables
+4. Deploy automatically
+
+See [`DEPLOYMENT.md`](./DEPLOYMENT.md) for detailed instructions.
+
 ## License
 
 Private project
