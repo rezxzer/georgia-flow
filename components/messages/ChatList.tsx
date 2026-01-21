@@ -185,12 +185,14 @@ export default function ChatList() {
                 >
                     <div className="flex items-center gap-4">
                         <div className="relative">
-                            <div className="w-12 h-12 rounded-full bg-gray-200 flex items-center justify-center flex-shrink-0">
+                            <div className="w-12 h-12 rounded-full bg-gray-200 flex items-center justify-center flex-shrink-0 overflow-hidden">
                                 {chat.friend_avatar ? (
-                                    <img
+                                    <Image
                                         src={chat.friend_avatar}
                                         alt={chat.friend_username}
-                                        className="w-full h-full rounded-full object-cover"
+                                        width={48}
+                                        height={48}
+                                        className="rounded-full object-cover"
                                     />
                                 ) : (
                                     <span className="text-gray-500">
