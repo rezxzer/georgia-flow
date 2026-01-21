@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import Image from 'next/image';
 import { createClient } from '@/lib/supabase/client';
 import { useAuth } from '@/contexts/AuthContext';
@@ -32,12 +32,7 @@ export default function CommentsSection({ placeId, eventId }: CommentsSectionPro
     const [isLoading, setIsLoading] = useState(false);
     const [isSubmitting, setIsSubmitting] = useState(false);
 
-    useEffect(() => {
-        loadComments();
-        subscribeToComments();
-    }, [placeId, eventId]);
-
-    const loadComments = async () => {
+    const loadComments = useCallback(async () => {
         setIsLoading(true);
         try {
             let query = supabase
@@ -94,7 +89,15 @@ export default function CommentsSection({ placeId, eventId }: CommentsSectionPro
         return () => {
             supabase.removeChannel(channel);
         };
-    };
+    }, [placeId, eventId, supabase, loadComments]);
+
+    useEffect(() => {
+        loadComments();
+        const unsubscribe = subscribeToComments();
+        return () => {
+            if (unsubscribe) unsubscribe();
+        };
+    }, [loadComments, subscribeToComments]);
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
