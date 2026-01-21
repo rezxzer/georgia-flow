@@ -1,0 +1,29 @@
+name: Update Repository Info
+
+on:
+  workflow_dispatch: # Allows manual trigger
+  push:
+    branches:
+      - main
+    paths:
+      - 'scripts/update-github-repo.js'
+      - '.github/workflows/update-repo.yml'
+
+jobs:
+  update-repo:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'workflow_dispatch' || github.ref == 'refs/heads/main'
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20'
+
+      - name: Update Repository
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          node scripts/update-github-repo.js || echo "Note: Repository update requires GITHUB_TOKEN secret to be set"
