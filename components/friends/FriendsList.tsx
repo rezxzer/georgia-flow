@@ -1,6 +1,7 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
+import Image from 'next/image';
 import { createClient } from '@/lib/supabase/client';
 import { useAuth } from '@/contexts/AuthContext';
 import Link from 'next/link';
@@ -27,16 +28,7 @@ export default function FriendsList({ userId }: FriendsListProps) {
     const [isLoading, setIsLoading] = useState(true);
     const targetUserId = userId || user?.id;
 
-    useEffect(() => {
-        if (targetUserId) {
-            loadFriends();
-            if (user?.id === targetUserId) {
-                loadPendingRequests();
-            }
-        }
-    }, [targetUserId, user]);
-
-    const loadFriends = async () => {
+    const loadFriends = useCallback(async () => {
         if (!targetUserId) return;
 
         setIsLoading(true);
@@ -75,9 +67,9 @@ export default function FriendsList({ userId }: FriendsListProps) {
         } finally {
             setIsLoading(false);
         }
-    };
+    }, [targetUserId, supabase]);
 
-    const loadPendingRequests = async () => {
+    const loadPendingRequests = useCallback(async () => {
         if (!user) return;
 
         try {
@@ -183,12 +175,14 @@ export default function FriendsList({ userId }: FriendsListProps) {
                                 className="flex items-center justify-between p-3 bg-gray-50 rounded-lg"
                             >
                                 <div className="flex items-center gap-3">
-                                    <div className="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center">
+                                    <div className="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center overflow-hidden">
                                         {request.avatar_url ? (
-                                            <img
+                                            <Image
                                                 src={request.avatar_url}
                                                 alt={request.username}
-                                                className="w-full h-full rounded-full object-cover"
+                                                width={40}
+                                                height={40}
+                                                className="rounded-full object-cover"
                                             />
                                         ) : (
                                             <span className="text-gray-500">
@@ -238,12 +232,14 @@ export default function FriendsList({ userId }: FriendsListProps) {
                                 className="flex items-center justify-between p-3 bg-gray-50 rounded-lg"
                             >
                                 <div className="flex items-center gap-3 flex-1">
-                                    <div className="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center flex-shrink-0">
+                                    <div className="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center flex-shrink-0 overflow-hidden">
                                         {friend.avatar_url ? (
-                                            <img
+                                            <Image
                                                 src={friend.avatar_url}
                                                 alt={friend.username}
-                                                className="w-full h-full rounded-full object-cover"
+                                                width={40}
+                                                height={40}
+                                                className="rounded-full object-cover"
                                             />
                                         ) : (
                                             <span className="text-gray-500">

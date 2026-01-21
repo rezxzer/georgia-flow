@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import Image from 'next/image';
 import { createClient } from '@/lib/supabase/client';
 import { useAuth } from '@/contexts/AuthContext';
 import Input from '@/components/ui/Input';
@@ -125,8 +126,12 @@ export default function FriendSearch({ onFriendAdded }: FriendSearchProps) {
                             <div className="flex items-center gap-3">
                                 <div className="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center">
                                     {profile.avatar_url ? (
-                                        <img
+                                        <Image
                                             src={profile.avatar_url}
+                                            alt={profile.username}
+                                            width={40}
+                                            height={40}
+                                            className="rounded-full"
                                             alt={profile.username}
                                             className="w-full h-full rounded-full object-cover"
                                         />

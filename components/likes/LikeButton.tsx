@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import { createClient } from '@/lib/supabase/client';
 import { useAuth } from '@/contexts/AuthContext';
 import Button from '@/components/ui/Button';
@@ -24,17 +24,7 @@ export default function LikeButton({
     const [likesCount, setLikesCount] = useState(initialLikes);
     const [isLoading, setIsLoading] = useState(false);
 
-    useEffect(() => {
-        if (user) {
-            checkIfLiked();
-            loadLikesCount();
-            subscribeToLikes();
-        } else {
-            loadLikesCount();
-        }
-    }, [user, placeId, eventId, commentId]);
-
-    const checkIfLiked = async () => {
+    const checkIfLiked = useCallback(async () => {
         if (!user) return;
 
         try {
@@ -78,9 +68,9 @@ export default function LikeButton({
         } catch (error) {
             console.error('Error loading likes count:', error);
         }
-    };
+    }, [placeId, eventId, commentId, supabase]);
 
-    const subscribeToLikes = () => {
+    const subscribeToLikes = useCallback(() => {
         const channel = supabase
             .channel(`likes:${placeId || eventId || commentId}`)
             .on(
@@ -105,7 +95,17 @@ export default function LikeButton({
         return () => {
             supabase.removeChannel(channel);
         };
-    };
+    }, [placeId, eventId, commentId, user, supabase, checkIfLiked, loadLikesCount]);
+
+    useEffect(() => {
+        if (user) {
+            checkIfLiked();
+            loadLikesCount();
+            subscribeToLikes();
+        } else {
+            loadLikesCount();
+        }
+    }, [user, placeId, eventId, commentId, checkIfLiked, loadLikesCount, subscribeToLikes]);
 
     const handleLike = async () => {
         if (!user) {
