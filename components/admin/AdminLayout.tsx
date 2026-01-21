@@ -78,8 +78,8 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
                                     <Link
                                         href={item.href}
                                         className={`flex items-center space-x-3 px-4 py-3 rounded-lg transition-colors ${isActive
-                                            ? 'bg-primary text-white'
-                                            : 'text-text hover:bg-gray-100'
+                                                ? 'bg-primary text-white'
+                                                : 'text-text hover:bg-gray-100'
                                             }`}
                                     >
                                         <span className="text-xl">{item.icon}</span>
