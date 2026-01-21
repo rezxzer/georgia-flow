@@ -183,10 +183,12 @@ export default function CommentsSection({ placeId, eventId }: CommentsSectionPro
                             <div className="flex items-start gap-3">
                                 <div className="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center flex-shrink-0">
                                     {comment.profile?.avatar_url ? (
-                                        <img
+                                        <Image
                                             src={comment.profile.avatar_url}
                                             alt={comment.profile.username}
-                                            className="w-full h-full rounded-full object-cover"
+                                            width={40}
+                                            height={40}
+                                            className="rounded-full object-cover"
                                         />
                                     ) : (
                                         <span className="text-gray-500">
