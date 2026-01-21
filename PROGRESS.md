@@ -1,5 +1,9 @@
 # Georgia Flow - Development Progress
 
+## Repository
+- **GitHub:** https://github.com/rezxzer/georgia-flow
+- **Status:** ✅ Initial commit pushed
+
 ## დღევანდელი სამუშაოები (2025-01-20)
 
 ### ✅ Phase 1.5 - Map Integration (დასრულებული)
@@ -47,6 +51,15 @@
 - [x] Impression tracking დამატებული
 
 **შენიშვნა:** Ads table უკვე არის migration-ში, RLS policies დაყენებულია
+
+---
+
+### ✅ GitHub Repository Setup (დასრულებული)
+- [x] Git repository initialized
+- [x] Remote repository added (https://github.com/rezxzer/georgia-flow)
+- [x] Initial commit (81 files, 16,062 insertions)
+- [x] README.md განახლებული (badges, documentation)
+- [x] .gitignore განახლებული
 
 ---
 
